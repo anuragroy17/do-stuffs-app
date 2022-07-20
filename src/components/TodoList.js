@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { getTodosByTaskId } from '../firebase';
+import { addTodo, getTodosByTaskId, updateTodo } from '../firebase';
 import './TodoList.scss';
 
 export const TodoList = (props) => {
   const [todoName, setTodoName] = useState('');
-  const [todos, setTodos] = useState(props.task?.todos);
+  const [todos, setTodos] = useState([]);
+  const [count, setCount] = useState(0);
 
-  const completeTodo = () => {
-    console.log('complete');
-  };
-
-  const addTodo = (e) => {
+  const addNewTodo = (e) => {
     e.preventDefault();
-    props.handleTodoAdd(todoName, props.task?.id);
+    try {
+      addTodo(todoName, props.task?.id);
+      fetchTodosOfTask(props.task?.id);
+    } catch (err) {
+      console.log('error occurred');
+    }
     setTodoName('');
   };
 
@@ -20,28 +22,33 @@ export const TodoList = (props) => {
     setTodoName(e.target.value);
   };
 
+  const handleChangeClick = async (td) => {
+    td.isCompleted = !td.isCompleted;
+    try {
+      await updateTodo(td, props.task?.id);
+      fetchTodosOfTask(props.task?.id);
+    } catch (err) {
+      console.log('error occured');
+    }
+  };
+
   const fetchTodosOfTask = async (taskId) => {
     const fetchedTodos = [];
     try {
-      // console.log(taskId);
       const receivedTodosSnapShot = await getTodosByTaskId(taskId);
-      // console.log(receivedTodosSnapShot);
       receivedTodosSnapShot.forEach((d) => {
-        // console.log('hi');
         fetchedTodos.push({
           id: d.id,
           ...d.data(),
         });
       });
     } catch (err) {
-      console.log(err);
+      console.log('error occurred');
     }
-    console.log(fetchedTodos);
     setTodos(fetchedTodos);
   };
 
   useEffect(() => {
-    console.log('test');
     fetchTodosOfTask(props.task?.id);
   }, [props.task?.id]);
 
@@ -49,16 +56,25 @@ export const TodoList = (props) => {
     <div className="todo-list">
       <div className="todo-header">
         <h2 className="list-title">{props.task?.taskName}</h2>
-        <p className="task-count">{todos?.length} tasks remaining</p>
+        <p className="task-count">
+          {todos.length !== 0 &&
+            todos.filter((t) => !t.isCompleted).length + ' task remaining'}
+          {todos.length === 0 && 'No Tasks Created'}
+        </p>
       </div>
 
       <div className="todo-body">
         <div className="tasks">
-          {todos?.map((td) => (
+          {todos.map((td) => (
             <div className="task" key={td.id}>
-              <input type="checkbox" id="task-1" />
-              <label>
-                <span className="custom-checkbox" onClick={completeTodo}></span>
+              <input
+                type="checkbox"
+                id={td.id}
+                defaultChecked={td.isCompleted}
+                onChange={() => handleChangeClick(td)}
+              />
+              <label htmlFor={td.id}>
+                <span className="custom-checkbox"></span>
                 {td.todoName}
               </label>
             </div>
@@ -66,7 +82,7 @@ export const TodoList = (props) => {
         </div>
 
         <div className="new-task-creator">
-          <form onSubmit={addTodo}>
+          <form onSubmit={addNewTodo}>
             <input
               type="text"
               className="new task"

@@ -126,6 +126,21 @@ const addTodo = async (todoName, taskId) => {
   }
 };
 
+const updateTodo = async (td, taskId) => {
+  const saveTodo = {
+    isCompleted: td.isCompleted,
+  };
+
+  const taskUpdate = {
+    lastEdited: Timestamp.fromDate(new Date()),
+  };
+
+  const taskRef = doc(userDataRef, auth.currentUser.uid, 'tasks', taskId);
+  const todosRef = doc(taskRef, 'todos', td.id);
+  await updateDoc(todosRef, saveTodo);
+  await updateDoc(taskRef, taskUpdate);
+};
+
 export {
   auth,
   db,
@@ -134,5 +149,6 @@ export {
   addTask,
   getAllTasks,
   addTodo,
+  updateTodo,
   getTodosByTaskId,
 };

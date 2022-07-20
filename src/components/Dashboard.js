@@ -19,7 +19,7 @@ export const Dashboard = () => {
         });
       });
     } catch (err) {
-      console.log(err);
+      console.log('error occurred');
     }
     setTasks(fetchedTasks);
     setSelectedTask(fetchedTasks[0]);
@@ -30,15 +30,7 @@ export const Dashboard = () => {
       addTask(newTask);
       fetchTasks();
     } catch (err) {
-      console.log('error occured');
-    }
-  };
-
-  const addNewTodo = (todoName, taskId) => {
-    try {
-      addTodo(todoName, taskId);
-    } catch (err) {
-      console.log('error occured');
+      console.log('error occurred');
     }
   };
 
@@ -57,7 +49,9 @@ export const Dashboard = () => {
         handleSelectedTask={selectTask}
         taskList={tasks}
       />
-      <TodoList task={selectedTask} handleTodoAdd={addNewTodo} />
+      {tasks.length !== 0 && JSON.stringify(selectedTask) !== '{}' && (
+        <TodoList task={selectedTask} />
+      )}
     </>
   );
 };

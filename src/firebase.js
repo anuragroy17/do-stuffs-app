@@ -8,9 +8,13 @@ import {
 import {
   addDoc,
   collection,
+  doc,
   getDocs,
   getFirestore,
+  orderBy,
   query,
+  setDoc,
+  Timestamp,
   where,
 } from 'firebase/firestore';
 
@@ -57,4 +61,31 @@ const logout = async () => {
   }
 };
 
-export { auth, db, signInWithGoogle, logout };
+const addTask = async (taskName) => {
+  try {
+    const saveNote = {
+      taskName: taskName,
+      uid: auth.currentUser.uid,
+      date: Timestamp.fromDate(new Date()),
+      lastEdited: Timestamp.fromDate(new Date()),
+    };
+    const tasksRef = collection(userDataRef, auth.currentUser.uid, 'tasks');
+    await setDoc(doc(tasksRef), saveNote);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const getAllTasks = async () => {
+  try {
+    const tasksRef = collection(userDataRef, auth.currentUser.uid, 'tasks');
+    const q = query(tasksRef, orderBy('lastEdited'));
+    const querySnapshot = await getDocs(q);
+    console.log(querySnapshot);
+    return querySnapshot;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+export { auth, db, signInWithGoogle, logout, addTask, getAllTasks };

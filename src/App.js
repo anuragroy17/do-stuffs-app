@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className="title">Stuff I need to do</h1>
+      <h1 className="title">Stuffs To Do</h1>
       <SignOut />
       {user ? <Dashboard /> : <SignIn className="btn sign-in" />}
     </div>

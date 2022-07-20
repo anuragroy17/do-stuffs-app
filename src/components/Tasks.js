@@ -7,6 +7,11 @@ export const Tasks = (props) => {
   const addTask = (e) => {
     e.preventDefault();
     props.handleAddTask(newTask);
+    setNewTask('');
+  };
+
+  const selectTask = (t) => {
+    props.handleSelectedTask(t);
   };
 
   const handleChange = (e) => {
@@ -19,7 +24,11 @@ export const Tasks = (props) => {
 
       <ul className="task-list">
         {props.taskList.map((t) => (
-          <li key={t.id} className="list-name active-list">
+          <li
+            key={t.id}
+            className="list-name active-list"
+            onClick={() => selectTask(t)}
+          >
             {t.taskName}
           </li>
         ))}
@@ -31,6 +40,7 @@ export const Tasks = (props) => {
           className="new list"
           placeholder="new list name"
           aria-label="new list name"
+          value={newTask}
           onChange={handleChange}
         />
         <button

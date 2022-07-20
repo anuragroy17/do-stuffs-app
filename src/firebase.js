@@ -15,6 +15,7 @@ import {
   query,
   setDoc,
   Timestamp,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 
@@ -63,14 +64,14 @@ const logout = async () => {
 
 const addTask = async (taskName) => {
   try {
-    const saveNote = {
+    const saveTask = {
       taskName: taskName,
       uid: auth.currentUser.uid,
       date: Timestamp.fromDate(new Date()),
       lastEdited: Timestamp.fromDate(new Date()),
     };
     const tasksRef = collection(userDataRef, auth.currentUser.uid, 'tasks');
-    await setDoc(doc(tasksRef), saveNote);
+    await setDoc(doc(tasksRef), saveTask);
   } catch (err) {
     throw new Error(err);
   }
@@ -79,13 +80,59 @@ const addTask = async (taskName) => {
 const getAllTasks = async () => {
   try {
     const tasksRef = collection(userDataRef, auth.currentUser.uid, 'tasks');
-    const q = query(tasksRef, orderBy('lastEdited'));
+    const q = query(tasksRef, orderBy('lastEdited', 'desc'));
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot);
     return querySnapshot;
   } catch (err) {
     throw new Error(err);
   }
 };
 
-export { auth, db, signInWithGoogle, logout, addTask, getAllTasks };
+const getTodosByTaskId = async (taskId) => {
+  try {
+    const todosRef = collection(
+      userDataRef,
+      auth.currentUser.uid,
+      'tasks',
+      taskId,
+      'todos'
+    );
+    const q = query(todosRef, orderBy('date'));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const addTodo = async (todoName, taskId) => {
+  try {
+    const saveTodo = {
+      todoName: todoName,
+      uid: auth.currentUser.uid,
+      date: Timestamp.fromDate(new Date()),
+      isCompleted: false,
+    };
+    const taskRef = doc(userDataRef, auth.currentUser.uid, 'tasks', taskId);
+    const todosRef = collection(taskRef, 'todos');
+    await setDoc(doc(todosRef), saveTodo);
+
+    const taskUpdate = {
+      lastEdited: Timestamp.fromDate(new Date()),
+    };
+    await updateDoc(taskRef, taskUpdate);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+export {
+  auth,
+  db,
+  signInWithGoogle,
+  logout,
+  addTask,
+  getAllTasks,
+  addTodo,
+  getTodosByTaskId,
+};

@@ -6,6 +6,7 @@ export const Tasks = (props) => {
 
   const addTask = (e) => {
     e.preventDefault();
+    if (newTask === '') return;
     props.handleAddTask(newTask);
     setNewTask('');
   };
@@ -46,7 +47,6 @@ export const Tasks = (props) => {
         <button
           className="btn create"
           type="submit"
-          disabled={newTask === ''}
           aria-label="create new list"
         >
           +

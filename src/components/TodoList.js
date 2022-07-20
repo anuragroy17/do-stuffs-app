@@ -5,10 +5,10 @@ import './TodoList.scss';
 export const TodoList = (props) => {
   const [todoName, setTodoName] = useState('');
   const [todos, setTodos] = useState([]);
-  const [count, setCount] = useState(0);
 
   const addNewTodo = (e) => {
     e.preventDefault();
+    if (todoName === '') return;
     try {
       addTodo(todoName, props.task?.id);
       fetchTodosOfTask(props.task?.id);

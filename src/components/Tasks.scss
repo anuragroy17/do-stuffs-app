@@ -50,6 +50,10 @@
     margin-bottom: 0;
 }
 
+.new.list::placeholder {
+    color: var(--clr-secondary);
+}
+
 .active-list {
     font-weight: 700;
 }

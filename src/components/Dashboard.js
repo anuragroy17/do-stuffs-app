@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { addTask, addTodo, getAllTasks, getTodosByTaskId } from '../firebase';
+import {
+  addTask,
+  addTodo,
+  deleteTask,
+  getAllTasks,
+  getTodosByTaskId,
+} from '../firebase';
 import { Tasks } from './Tasks';
 import { TodoList } from './TodoList';
 
@@ -38,6 +44,16 @@ export const Dashboard = () => {
     setSelectedTask(t);
   };
 
+  const deleteTaskParmanently = async () => {
+    try {
+      console.log(selectedTask.id);
+      await deleteTask(selectedTask.id);
+      fetchTasks();
+    } catch (err) {
+      console.log('error occured');
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -50,7 +66,10 @@ export const Dashboard = () => {
         taskList={tasks}
       />
       {tasks.length !== 0 && JSON.stringify(selectedTask) !== '{}' && (
-        <TodoList task={selectedTask} />
+        <TodoList
+          task={selectedTask}
+          handleDeleteTask={deleteTaskParmanently}
+        />
       )}
     </>
   );

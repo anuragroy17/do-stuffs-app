@@ -8,6 +8,7 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   getFirestore,
@@ -17,6 +18,7 @@ import {
   Timestamp,
   updateDoc,
   where,
+  writeBatch,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -117,10 +119,7 @@ const addTodo = async (todoName, taskId) => {
     const todosRef = collection(taskRef, 'todos');
     await setDoc(doc(todosRef), saveTodo);
 
-    const taskUpdate = {
-      lastEdited: Timestamp.fromDate(new Date()),
-    };
-    await updateDoc(taskRef, taskUpdate);
+    updateTask(taskRef);
   } catch (err) {
     throw new Error(err);
   }
@@ -131,13 +130,42 @@ const updateTodo = async (td, taskId) => {
     isCompleted: td.isCompleted,
   };
 
-  const taskUpdate = {
-    lastEdited: Timestamp.fromDate(new Date()),
-  };
-
   const taskRef = doc(userDataRef, auth.currentUser.uid, 'tasks', taskId);
   const todosRef = doc(taskRef, 'todos', td.id);
   await updateDoc(todosRef, saveTodo);
+  updateTask(taskRef);
+};
+
+const deleteCompleted = async (todos, taskId) => {
+  const taskRef = doc(userDataRef, auth.currentUser.uid, 'tasks', taskId);
+  try {
+    const batch = writeBatch(db);
+    todos.forEach((td) => {
+      if (td.isCompleted) {
+        batch.delete(doc(taskRef, 'todos', td.id));
+      }
+    });
+    await batch.commit();
+
+    updateTask(taskRef);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const deleteTask = async (taskId) => {
+  try {
+    const taskRef = doc(userDataRef, auth.currentUser.uid, 'tasks', taskId);
+    await deleteDoc(taskRef);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const updateTask = async (taskRef) => {
+  const taskUpdate = {
+    lastEdited: Timestamp.fromDate(new Date()),
+  };
   await updateDoc(taskRef, taskUpdate);
 };
 
@@ -151,4 +179,6 @@ export {
   addTodo,
   updateTodo,
   getTodosByTaskId,
+  deleteCompleted,
+  deleteTask,
 };

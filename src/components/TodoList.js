@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { addTodo, getTodosByTaskId, updateTodo } from '../firebase';
+import {
+  addTodo,
+  deleteCompleted,
+  getTodosByTaskId,
+  updateTodo,
+} from '../firebase';
 import './TodoList.scss';
 
 export const TodoList = (props) => {
@@ -48,8 +53,22 @@ export const TodoList = (props) => {
     setTodos(fetchedTodos);
   };
 
+  const clearCompleted = async () => {
+    try {
+      await deleteCompleted(todos, props.task?.id);
+      fetchTodosOfTask(props.task?.id);
+    } catch (err) {
+      console.log('error occured');
+    }
+  };
+
+  const deleteTask = async () => {
+    props.handleDeleteTask();
+  };
+
   useEffect(() => {
     fetchTodosOfTask(props.task?.id);
+    setTodoName('');
   }, [props.task?.id]);
 
   return (
@@ -102,8 +121,12 @@ export const TodoList = (props) => {
         </div>
 
         <div className="delete-stuff">
-          <button className="btn delete">Clear completed tasks</button>
-          <button className="btn delete">Delete list</button>
+          <button className="btn delete" onClick={clearCompleted}>
+            Clear completed tasks
+          </button>
+          <button className="btn delete" onClick={deleteTask}>
+            Delete list
+          </button>
         </div>
       </div>
     </div>

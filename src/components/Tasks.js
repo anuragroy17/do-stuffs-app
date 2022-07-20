@@ -21,7 +21,7 @@ export const Tasks = (props) => {
 
   return (
     <div className="all-tasks">
-      <h2 className="task-list-title">My tasks</h2>
+      <h2 className="task-list-title">My List</h2>
 
       <ul className="task-list">
         {props.taskList.map((t) => (

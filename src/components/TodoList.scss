@@ -2,8 +2,8 @@
     --spacer: 2rem;
 
     grid-area: active;
-    background: var(--clr-light);
-    color: var(--clr-dark);
+    background: var(--clr-secondary);
+    color: var(--clr-todo-text);
 }
 
 .todo-header {
@@ -114,5 +114,6 @@
     width: 100%;
     left: 0;
     bottom: -35px;
-    color: var(--clr-light);
+    color: var(--clr-secondary);
+    padding-bottom: 0.5rem;
 }

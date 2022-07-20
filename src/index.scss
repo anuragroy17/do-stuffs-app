@@ -2,8 +2,8 @@
 
 :root {
   --clr-primary: rgb(54, 112, 199);
-  --clr-light: #f4f4f4;
-  --clr-dark: #333;
+  --clr-secondary: #f4f4f4;
+  --clr-todo-text: #333;
   --clr-warning: rgb(99, 36, 36);
 }
 
@@ -20,7 +20,7 @@ body {
   font-weight: 300;
   font-size: 1.5rem;
   background-color: var(--clr-primary);
-  color: var(--clr-light);
+  color: var(--clr-secondary);
 }
 
 form {
@@ -54,4 +54,17 @@ form {
 
 .btn.delete:hover {
   color: var(--clr-warning);
+}
+
+
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--clr-primary);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--clr-secondary);
 }

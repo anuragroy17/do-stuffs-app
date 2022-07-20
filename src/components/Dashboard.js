@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  addTask,
-  addTodo,
-  deleteTask,
-  getAllTasks,
-  getTodosByTaskId,
-} from '../firebase';
+import { addTask, deleteTask, getAllTasks } from '../firebase';
 import { Tasks } from './Tasks';
 import { TodoList } from './TodoList';
 

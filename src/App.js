@@ -1,7 +1,7 @@
 import './App.scss';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, signInWithGoogle, logout } from './firebase';
-import { Dashboard } from './Dashboard';
+import { Dashboard } from './components/Dashboard';
 import { UilSignOutAlt } from '@iconscout/react-unicons';
 import { UilGoogle } from '@iconscout/react-unicons';
 

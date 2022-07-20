@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, signInWithGoogle, logout } from './firebase';
+import { Dashboard } from './Dashboard';
+import { UilSignOutAlt } from '@iconscout/react-unicons';
+import { UilGoogle } from '@iconscout/react-unicons';
 
-function App() {
+const App = () => {
+  const [user] = useAuthState(auth);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="title">Stuff I need to do</h1>
+      <SignOut />
+      {user ? <Dashboard /> : <SignIn className="btn sign-in" />}
     </div>
   );
-}
+};
+
+const SignIn = () => {
+  return (
+    <>
+      <button className="sign-in" onClick={signInWithGoogle}>
+        <div className="icon">
+          <UilGoogle />
+        </div>
+        <div className="text">Login with Google</div>
+      </button>
+    </>
+  );
+};
+
+const SignOut = () => {
+  return (
+    auth.currentUser && (
+      <button className="btn sign-out" onClick={logout}>
+        <div className="text">{auth.currentUser.displayName}</div>
+        <div className="icon">
+          <UilSignOutAlt />
+        </div>
+      </button>
+    )
+  );
+};
 
 export default App;

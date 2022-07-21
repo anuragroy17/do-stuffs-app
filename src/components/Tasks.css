@@ -60,8 +60,14 @@
 
 @media only screen and (max-width: 600px) {
     .task-list {
-        height: 3rem;
-        overflow: scroll;
+        height: 5rem;
+        overflow: overlay;
+        border: 1px solid var(--clr-secondary);
+        padding-left: 2rem;
+    }
+
+    .task-list-title {
+        margin-bottom: 0;
     }
 
     .task-list::-webkit-scrollbar {

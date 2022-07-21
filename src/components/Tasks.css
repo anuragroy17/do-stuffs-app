@@ -57,3 +57,22 @@
 .active-list {
     font-weight: 700;
 }
+
+@media only screen and (max-width: 600px) {
+    .task-list {
+        height: 3rem;
+        overflow: scroll;
+    }
+
+    .task-list::-webkit-scrollbar {
+        width: 0.25rem;
+    }
+
+    .task-list::-webkit-scrollbar-track {
+        background: var(--clr-primary);
+    }
+
+    .task-list::-webkit-scrollbar-thumb {
+        background: var(--clr-secondary);
+    }
+}

@@ -29,7 +29,11 @@ export const Tasks = (props) => {
         {props.taskList.map((t) => (
           <li
             key={t.id}
-            className="list-name active-list"
+            className={
+              props.selectedTask?.id === t.id
+                ? 'list-name active-list'
+                : 'list-name'
+            }
             onClick={() => selectTask(t)}
           >
             {t.taskName}

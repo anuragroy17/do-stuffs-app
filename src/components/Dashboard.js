@@ -7,7 +7,7 @@ export const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState({});
 
-  const fetchTasks = async () => {
+  const fetchTasks = async (setSelected) => {
     const fetchedTasks = [];
     try {
       const receivedTasksSnapShot = await getAllTasks();
@@ -22,13 +22,15 @@ export const Dashboard = () => {
       console.log('error occurred');
     }
     setTasks(fetchedTasks);
-    setSelectedTask(fetchedTasks[0]);
+    if (setSelected) {
+      setSelectedTask(fetchedTasks[0]);
+    }
   };
 
   const addNewTask = (newTask) => {
     try {
       addTask(newTask);
-      fetchTasks();
+      fetchTasks(true);
     } catch (err) {
       console.log('error occurred');
     }
@@ -42,19 +44,28 @@ export const Dashboard = () => {
     try {
       console.log(selectedTask.id);
       await deleteTask(selectedTask.id);
-      fetchTasks();
+      fetchTasks(true);
     } catch (err) {
       console.log('error occured');
     }
   };
 
+  const sortList = () => {
+    try {
+      fetchTasks(false);
+    } catch (err) {
+      console.log('error occurred');
+    }
+  };
+
   useEffect(() => {
-    fetchTasks();
+    fetchTasks(true);
   }, []);
 
   return (
     <>
       <Tasks
+        selectedTask={selectedTask}
         handleAddTask={addNewTask}
         handleSelectedTask={selectTask}
         taskList={tasks}
@@ -63,6 +74,7 @@ export const Dashboard = () => {
         <TodoList
           task={selectedTask}
           handleDeleteTask={deleteTaskParmanently}
+          handleSortList={sortList}
         />
       )}
     </>

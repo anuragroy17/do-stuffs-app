@@ -17,6 +17,7 @@ export const TodoList = (props) => {
     try {
       addTodo(todoName, props.task?.id);
       fetchTodosOfTask(props.task?.id);
+      props.handleSortList();
     } catch (err) {
       console.log('error occurred');
     }
@@ -32,6 +33,7 @@ export const TodoList = (props) => {
     try {
       await updateTodo(td, props.task?.id);
       fetchTodosOfTask(props.task?.id);
+      props.handleSortList();
     } catch (err) {
       console.log('error occured');
     }
@@ -61,6 +63,7 @@ export const TodoList = (props) => {
       }
       await deleteCompleted(todos, props.task?.id);
       fetchTodosOfTask(props.task?.id);
+      props.handleSortList();
     } catch (err) {
       console.log('error occured');
     }

@@ -4,6 +4,7 @@
     grid-area: active;
     background: var(--clr-secondary);
     color: var(--clr-todo-text);
+    position: relative;
 }
 
 .todo-header {
@@ -25,7 +26,6 @@
 
 .todo-body {
     padding: var(--spacer);
-    position: relative;
 }
 
 .new-task-creator .create {

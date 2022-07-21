@@ -5,7 +5,7 @@ import {
   getTodosByTaskId,
   updateTodo,
 } from '../firebase';
-import './TodoList.scss';
+import './TodoList.css';
 
 export const TodoList = (props) => {
   const [todoName, setTodoName] = useState('');
@@ -55,6 +55,10 @@ export const TodoList = (props) => {
 
   const clearCompleted = async () => {
     try {
+      if (todos.length === 0) return;
+      if (todos.filter((t) => !t.isCompleted).length === 0) {
+        return;
+      }
       await deleteCompleted(todos, props.task?.id);
       fetchTodosOfTask(props.task?.id);
     } catch (err) {

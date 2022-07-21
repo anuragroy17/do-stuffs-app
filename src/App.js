@@ -1,4 +1,4 @@
-import './App.scss';
+import './App.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, signInWithGoogle, logout } from './firebase';
 import { Dashboard } from './components/Dashboard';

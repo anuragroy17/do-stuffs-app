@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Tasks.scss';
+import './Tasks.css';
 
 export const Tasks = (props) => {
   const [newTask, setNewTask] = useState('');
@@ -16,7 +16,9 @@ export const Tasks = (props) => {
   };
 
   const handleChange = (e) => {
-    setNewTask(e.target.value);
+    const value = e.target.value;
+    const capitalizeValue = value.charAt(0).toUpperCase() + value.slice(1);
+    setNewTask(capitalizeValue);
   };
 
   return (

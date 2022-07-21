@@ -58,7 +58,7 @@ export const TodoList = (props) => {
   const clearCompleted = async () => {
     try {
       if (todos.length === 0) return;
-      if (todos.filter((t) => !t.isCompleted).length === 0) {
+      if (todos.filter((t) => t.isCompleted).length === 0) {
         return;
       }
       await deleteCompleted(todos, props.task?.id);

@@ -169,18 +169,15 @@
   border-color: black;
 }
 
-#blue {
-  background-color: #0984e3;
-}
+@media only screen and (max-width: 600px) {
+  .App {
+    display: grid;
+    grid:
+      ". header ."auto ". signout ."auto ". signin ."auto ". lists ."auto ". active ."auto / 1fr minmax(100px, 300px) 1fr;
+  }
 
-#yellow {
-  background-color: #cddc39;
-}
-
-#purple {
-  background-color: #ab47bc;
-}
-
-#green {
-  background-color: #66bb6a;
+  .sign-in {
+    font-size: 1.3rem;
+    padding: 10px 10px;
+  }
 }

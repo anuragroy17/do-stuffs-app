@@ -117,3 +117,9 @@
     color: var(--clr-secondary);
     padding-bottom: 0.5rem;
 }
+
+@media only screen and (max-width: 600px) {
+    .todo-list {
+        margin-top: 1.5rem;
+    }
+}

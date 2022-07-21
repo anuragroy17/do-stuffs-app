@@ -50,9 +50,9 @@ export const Dashboard = () => {
     }
   };
 
-  const sortList = () => {
+  const sortList = async () => {
     try {
-      fetchTasks(false);
+      await fetchTasks(false);
     } catch (err) {
       console.log('error occurred');
     }

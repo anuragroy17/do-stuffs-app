@@ -113,9 +113,10 @@
     position: absolute;
     width: 100%;
     left: 0;
-    bottom: -35px;
+    bottom: -45px;
     color: var(--clr-secondary);
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.5rem;
 }
 
 @media only screen and (max-width: 600px) {

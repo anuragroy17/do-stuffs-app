@@ -2,7 +2,7 @@
   position: relative;
   display: grid;
   grid:
-    "header header header header"auto ". . signout ."auto ". signin signin ."auto ". lists  active ."auto / 1fr minmax(100px, 300px) minmax(250px, 500px) 1fr;
+    "header header header header"auto ". palette signout ."auto ". signin signin ."auto ". lists  active ."auto / 1fr minmax(100px, 300px) minmax(250px, 500px) 1fr;
 }
 
 .title {
@@ -128,7 +128,7 @@
 
 
 .palette-container {
-  grid-area: signout;
+  grid-area: palette;
   width: 2rem;
   position: relative;
   margin-right: auto;
@@ -173,7 +173,7 @@
   .App {
     display: grid;
     grid:
-      ". header ."auto ". signout ."auto ". signin ."auto ". lists ."auto ". active ."auto / 1fr minmax(100px, 300px) 1fr;
+      ". header ."auto ". signout ."auto ". palette ."auto ". signin ."auto ". lists ."auto ". active ."auto / 1fr minmax(100px, 300px) 1fr;
   }
 
   .sign-in {

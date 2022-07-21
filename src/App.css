@@ -2,7 +2,7 @@
   position: relative;
   display: grid;
   grid:
-    "header header header header"auto ". palette signout ."auto ". signin signin ."auto ". lists  active ."auto / 1fr minmax(100px, 300px) minmax(250px, 500px) 1fr;
+    "header header header header"auto ". dashboard-palette signout ."auto ". signin signin ."auto ". login-palette login-palette ."auto ". lists  active ."auto / 1fr minmax(100px, 300px) minmax(250px, 500px) 1fr;
 }
 
 .title {
@@ -126,19 +126,36 @@
   }
 }
 
-
-.palette-container {
-  grid-area: palette;
-  width: 2rem;
-  position: relative;
-  margin-right: auto;
+.login-palette-container {
+  grid-area: login-palette;
+  display: flex;
+  margin: auto;
+  margin-top: 1rem;
 }
 
-.palette-container:hover {
+.dashboard-palette-container {
+  grid-area: dashboard-palette;
+  position: relative;
+  margin-right: auto;
+  width: 2rem;
+}
+
+.dashboard-palette-container:hover {
   color: var(--clr-warning);
 }
 
-.palette-colors {
+.login-palette-container .palette-colors {
+  display: flex;
+  background-color: rgb(228, 228, 228);
+  list-style: none;
+  padding: 2px;
+  border-radius: 10px;
+  margin: 0;
+  margin-left: 10px;
+  margin-top: -5px;
+}
+
+.dashboard-palette-container .palette-colors {
   position: absolute;
   top: -30px;
   left: 30px;
@@ -150,7 +167,7 @@
   display: none
 }
 
-.palette-container:hover .palette-colors {
+.dashboard-palette-container:hover .palette-colors {
   display: flex;
 }
 
@@ -173,7 +190,11 @@
   .App {
     display: grid;
     grid:
-      ". header ."auto ". signout ."auto ". palette ."auto ". signin ."auto ". lists ."auto ". active ."auto / 1fr minmax(100px, 300px) 1fr;
+      ". header ."auto ". signout ."auto ". dashboard-palette ."auto ". signin ."auto ". login-palette ."auto ". lists ."auto ". active ."auto / 1fr minmax(100px, 300px) 1fr;
+  }
+
+  .title {
+    margin-bottom: 0;
   }
 
   .sign-in {
@@ -181,7 +202,7 @@
     padding: 10px 10px;
   }
 
-  .palette-colors {
-    top: -25px
+  .sign-out {
+    margin: auto;
   }
 }

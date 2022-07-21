@@ -15,8 +15,12 @@ const colors = [
   { colorName: 'green', hex: '#66bb6a' },
   { colorName: 'yellow', hex: '#cb8208' },
 ];
+
+const classNames = ['dashboard-palette-container', 'login-palette-container'];
+
 const App = () => {
   const [user, fetchingUser] = useAuthState(auth);
+  const [className, setClassName] = useState(classNames[0]);
 
   const changeTheme = (hex) => {
     localStorage.setItem('theme-color', hex);
@@ -28,10 +32,22 @@ const App = () => {
     if (setTheme) changeTheme(setTheme);
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth < 600) {
+      setClassName(classNames[1]);
+    } else {
+      setClassName(classNames[0]);
+    }
+  }, [className]);
+
   return (
     <div className="App">
       <h1 className="title">Stuffs To Do</h1>
-      {user && <ColorPallete handleTheme={changeTheme} />}
+      {user ? (
+        <ColorPallete handleTheme={changeTheme} className={className} />
+      ) : (
+        <ColorPallete className={classNames[1]} handleTheme={changeTheme} />
+      )}
       <SignOut />
       {user ? <Dashboard /> : <SignIn isFetchinguser={fetchingUser} />}
     </div>
@@ -86,7 +102,7 @@ const SignOut = () => {
 
 const ColorPallete = (props) => {
   return (
-    <div className="palette-container">
+    <div className={props.className}>
       <UilPalette />
       <ul className="palette-colors">
         {colors.map((c) => (

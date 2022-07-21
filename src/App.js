@@ -6,21 +6,25 @@ import { UilSignOutAlt } from '@iconscout/react-unicons';
 import { UilGoogle } from '@iconscout/react-unicons';
 
 const App = () => {
-  const [user] = useAuthState(auth);
+  const [user, fetchingUser] = useAuthState(auth);
 
   return (
     <div className="App">
       <h1 className="title">Stuffs To Do</h1>
       <SignOut />
-      {user ? <Dashboard /> : <SignIn className="btn sign-in" />}
+      {user ? <Dashboard /> : <SignIn isFetchinguser={fetchingUser} />}
     </div>
   );
 };
 
-const SignIn = () => {
+const SignIn = (props) => {
   return (
     <>
-      <button className="sign-in" onClick={signInWithGoogle}>
+      <button
+        className={props.isFetchinguser ? 'btn sign-in loading' : 'btn sign-in'}
+        onClick={signInWithGoogle}
+        disabled={props.isFetchinguser}
+      >
         <div className="icon">
           <UilGoogle />
         </div>

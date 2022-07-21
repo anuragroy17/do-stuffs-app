@@ -41,7 +41,7 @@
   margin-top: 10rem;
   display: flex;
   gap: 0.4rem;
-
+  position: relative;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.8);
   background-color: transparent;
@@ -52,9 +52,75 @@
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
   font-size: 1.5rem;
+  transition: border 0.2s, width 0.2s, height 0.2s;
+  transition: border-color 0.5s, color 0.5s;
 }
 
 .sign-in:hover {
   color: var(--clr-secondary);
   border-color: var(--clr-secondary);
+}
+
+.sign-in::before {
+  content: '';
+  visibility: hidden;
+  opacity: 0;
+  transition-delay: 1s;
+  // transition: opacity 1s, visibility 1s;
+}
+
+.sign-in.loading {
+  pointer-events: none;
+  cursor: wait;
+  border-radius: 50%;
+  padding: 0;
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+}
+
+.sign-in.loading .icon,
+.sign-in.loading .text {
+  display: none;
+}
+
+.sign-in.loading::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  border-radius: 50%;
+  padding: 0;
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid #fff;
+  opacity: 1;
+  visibility: visible;
+  -webkit-animation-name: turn;
+  animation-name: turn;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes turn {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes turn {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(720deg);
+  }
 }

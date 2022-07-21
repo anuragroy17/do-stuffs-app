@@ -122,4 +122,8 @@
     .todo-list {
         margin-top: 1.5rem;
     }
+
+    .todo-in {
+        overflow: hidden;
+    }
 }

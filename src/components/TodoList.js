@@ -111,7 +111,7 @@ export const TodoList = (props) => {
           <form onSubmit={addNewTodo}>
             <input
               type="text"
-              className="new task"
+              className="new task todo-in"
               placeholder="new task name"
               aria-label="new task name"
               value={todoName}

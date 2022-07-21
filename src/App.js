@@ -70,13 +70,13 @@ const SignOut = () => {
 
 const ColorPallete = (props) => {
   return (
-    <div class="palette-container">
+    <div className="palette-container">
       <UilPalette />
-      <ul class="palette-colors">
+      <ul className="palette-colors">
         {colors.map((c) => (
           <li
             key={c.colorName}
-            class="colors"
+            className="colors"
             style={{ backgroundColor: c.hex }}
             onClick={() => props.handleTheme(c.hex)}
           />

@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
   signOut,
 } from 'firebase/auth';
 import {
@@ -39,7 +39,7 @@ const userDataRef = collection(db, 'userData');
 
 const signInWithGoogle = async () => {
   try {
-    const res = await signInWithPopup(auth, googleProvider);
+    const res = await signInWithRedirect(auth, googleProvider);
     const user = res.user;
     const q = query(userCollectionRef, where('uid', '==', user.uid));
     const docs = await getDocs(q);

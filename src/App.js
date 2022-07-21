@@ -4,13 +4,34 @@ import { auth, signInWithGoogle, logout } from './firebase';
 import { Dashboard } from './components/Dashboard';
 import { UilSignOutAlt } from '@iconscout/react-unicons';
 import { UilGoogle } from '@iconscout/react-unicons';
+import { UilPalette } from '@iconscout/react-unicons';
+import { useEffect } from 'react';
 
+const colors = [
+  { colorName: 'dark', hex: '#455A64' },
+  { colorName: 'purple', hex: '#303F9F' },
+  { colorName: 'blue', hex: '#3670C7' },
+  { colorName: 'teal', hex: '#00796B' },
+  { colorName: 'green', hex: '#66bb6a' },
+  { colorName: 'yellow', hex: '#cb8208' },
+];
 const App = () => {
   const [user, fetchingUser] = useAuthState(auth);
+
+  const changeTheme = (hex) => {
+    localStorage.setItem('theme-color', hex);
+    document.documentElement.style.setProperty('--clr-primary', hex);
+  };
+
+  useEffect(() => {
+    const setTheme = localStorage.getItem('theme-color');
+    if (setTheme) changeTheme(setTheme);
+  }, []);
 
   return (
     <div className="App">
       <h1 className="title">Stuffs To Do</h1>
+      {user && <ColorPallete handleTheme={changeTheme} />}
       <SignOut />
       {user ? <Dashboard /> : <SignIn isFetchinguser={fetchingUser} />}
     </div>
@@ -44,6 +65,24 @@ const SignOut = () => {
         </div>
       </button>
     )
+  );
+};
+
+const ColorPallete = (props) => {
+  return (
+    <div class="palette-container">
+      <UilPalette />
+      <ul class="palette-colors">
+        {colors.map((c) => (
+          <li
+            key={c.colorName}
+            class="colors"
+            style={{ backgroundColor: c.hex }}
+            onClick={() => props.handleTheme(c.hex)}
+          />
+        ))}
+      </ul>
+    </div>
   );
 };
 

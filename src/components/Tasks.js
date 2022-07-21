@@ -25,7 +25,13 @@ export const Tasks = (props) => {
     <div className="all-tasks">
       <h2 className="task-list-title">My List</h2>
 
-      <ul className="task-list">
+      <ul
+        className={
+          props.taskList.length !== 0
+            ? 'task-list small-task-list'
+            : 'task-list'
+        }
+      >
         {props.taskList.map((t) => (
           <li
             key={t.id}

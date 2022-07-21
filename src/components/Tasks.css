@@ -59,10 +59,10 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .task-list {
-        height: 5rem;
+    .small-task-list {
+        max-height: 5rem;
         overflow: overlay;
-        border: 1px solid var(--clr-secondary);
+        border: 1px solid rgba(255, 255, 255, 0.6);
         padding-left: 2rem;
     }
 
@@ -70,15 +70,15 @@
         margin-bottom: 0;
     }
 
-    .task-list::-webkit-scrollbar {
+    .small-task-list::-webkit-scrollbar {
         width: 0.25rem;
     }
 
-    .task-list::-webkit-scrollbar-track {
+    .small-task-list::-webkit-scrollbar-track {
         background: var(--clr-primary);
     }
 
-    .task-list::-webkit-scrollbar-thumb {
+    .small-task-list::-webkit-scrollbar-thumb {
         background: var(--clr-secondary);
     }
 }

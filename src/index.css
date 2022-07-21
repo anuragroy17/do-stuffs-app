@@ -68,3 +68,9 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background: var(--clr-secondary);
 }
+
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 1.2em;
+  }
+}

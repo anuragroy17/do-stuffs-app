@@ -180,4 +180,8 @@
     font-size: 1.3rem;
     padding: 10px 10px;
   }
+
+  .palette-colors {
+    top: -25px
+  }
 }

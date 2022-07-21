@@ -5,7 +5,7 @@ import { Dashboard } from './components/Dashboard';
 import { UilSignOutAlt } from '@iconscout/react-unicons';
 import { UilGoogle } from '@iconscout/react-unicons';
 import { UilPalette } from '@iconscout/react-unicons';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const colors = [
   { colorName: 'dark', hex: '#455A64' },
@@ -39,12 +39,28 @@ const App = () => {
 };
 
 const SignIn = (props) => {
+  const [isLoading, setLoading] = useState(false);
+
+  const googleOAuth = async () => {
+    setLoading(true);
+    try {
+      await signInWithGoogle();
+    } catch (err) {
+      console.log(err.occured);
+    }
+    setLoading(false);
+  };
+
   return (
     <>
       <button
-        className={props.isFetchinguser ? 'btn sign-in loading' : 'btn sign-in'}
-        onClick={signInWithGoogle}
-        disabled={props.isFetchinguser}
+        className={
+          props.isFetchinguser || isLoading
+            ? 'btn sign-in loading'
+            : 'btn sign-in'
+        }
+        onClick={googleOAuth}
+        disabled={props.isFetchinguser || isLoading}
       >
         <div className="icon">
           <UilGoogle />

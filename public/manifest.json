@@ -35,7 +35,8 @@
     {
       "src": "logo683.svg",
       "type": "image/svg+xml",
-      "sizes": "683x683"
+      "sizes": "any",
+      "purpose": "any"
     }
   ],
   "start_url": ".",

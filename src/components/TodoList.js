@@ -90,7 +90,7 @@ export const TodoList = (props) => {
       </div>
 
       <div className="todo-body">
-        <div className={todos.length !== 0 ? 'tasks small-todo-list' : 'tasks'}>
+        <div className="tasks">
           {todos.map((td) => (
             <div className="task" key={td.id}>
               <input

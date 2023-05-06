@@ -127,25 +127,4 @@
     .todo-in {
         overflow: hidden;
     }
-
-    .small-todo-list {
-        max-height: 5rem;
-        overflow: overlay;
-        border: 1px solid rgba(0, 0, 0, 0.3);
-        padding-left: 1rem;
-        padding-top: 0.5rem;
-    }
-
-    .small-todo-list::-webkit-scrollbar {
-        height: 0.25rem;
-        width: 0.25rem;
-    }
-
-    .small-todo-list::-webkit-scrollbar-track {
-        background: var(--clr-secondary);
-    }
-
-    .small-todo-list::-webkit-scrollbar-thumb {
-        background: var(--clr-primary);
-    }
 }
